@@ -244,7 +244,20 @@ Microsoft
 OAuth2 and OpenID Connect
 5. ทางเลือกเสริม (Open-Source / Ready-Made Frameworks)หากต้องการประหยัดเวลาพัฒนาตั้งแต่เริ่มต้น สามารถนำ Open-source หรือ Boilerplate ไปต่อยอดได้ทันที:Discourse (Self-Hosted): ติดตั้งบน VPS (เช่น DigitalOcean $10–$20/เดือน) ได้ฟรี มีระบบจัดการสมาชิกและคอมมูนิตี้ครบถ้วนNodeBB หรือ Flarum: ฟอรัมคอมมูนิตี้ยุคใหม่ที่น้ำหนักเบาและปรับแต่ง UI/Dark Mode ได้ง่าย
 
+🌐 การตั้งค่า Subdomain และ Supabase เมื่อขึ้น DigitalOcean VPS
+เมื่อคุณนำโปรเจกต์นี้ไป deploy บน DigitalOcean (เช่นชี้โดเมน community.faos.asia มาที่ VPS ผ่าน Nginx หรือ Reverse Proxy) มีจุดสำคัญที่ต้องตั้งค่าในระบบ Supabase เพิ่มเติมดังนี้ครับ:
 
+Site URL ใน Supabase Dashboard:
+
+ไปที่ Supabase Dashboard > Authentication > URL Configuration
+
+ตั้งค่า Site URL ให้เป็น URL จริงของคุณ เช่น:[https://community.faos.asia](https://community.faos.asia)
+
+Redirect URLs:
+
+เพิ่ม Redirect URL อนุญาตให้ระบบพาผู้ใช้กลับมาถูกต้องหลังกดลิงก์ยืนยันในอีเมล:[https://community.faos.asia/auth/callback](https://community.faos.asia/auth/callback)
+
+เท่านี้ระบบการสมัครสมาชิก ระบบส่งอีเมลยืนยัน และการเชื่อมต่อผ่าน Subdomain บน DigitalOcean ก็จะทำงานได้อย่างราบรื่นและปลอดภัยครับ
 
 
 
