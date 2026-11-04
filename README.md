@@ -1,3 +1,157 @@
+src/
+├── app/
+│   │
+│   ├── (marketing)/                     # 1. หน้าเว็บไซต์สำหรับขายบริการ (Landing Page & Pricing)
+│   │   ├── page.tsx                     # หน้าแรก (Hero Section, Features, Social Proof)
+│   │   ├── pricing/                     # หน้าแสดงแพ็กเกจราคา (Free, Pro, Enterprise)
+│   │   │   └── page.tsx
+│   │   ├── terms/
+│   │   │   └── page.tsx                 # Terms of Service
+│   │   └── privacy/
+│   │       └── page.tsx                 # Privacy Policy
+│   │
+│   ├── (admin)/                         # 2. ระบบหลังบ้าน (บังคับตรวจสอบสิทธิ์ Admin)
+│   │   └── admin/
+│   │       ├── layout.tsx               # Layout หลังบ้าน (Admin Sidebar)
+│   │       ├── page.tsx                 # Dashboard Overview (สถิติรายได้, กราฟสมาชิก)
+│   │       ├── members/
+│   │       │   └── page.tsx             # จัดการสมาชิก (เปลี่ยน Role, Banned, ให้ Badges)
+│   │       ├── spaces/
+│   │       │   └── page.tsx             # จัดการห้องพูดคุย (สร้าง/แก้ไข/ลบ Spaces & Categories)
+│   │       ├── subscriptions/
+│   │       │   └── page.tsx             # ตรวจสอบยอดชำระเงินและสถานะ Stripe Subscriptions
+│   │       └── settings/
+│   │           └── page.tsx             # ตั้งค่าระบบ (Branding, Domain, Integrations)
+│   │   └── unassigned/
+│   │       └── page.tsx                 # หน้า Access Denied (กรณีผู้ใช้ทั่วไปพยายามเข้าถึงลิงก์ Admin)
+│   │
+│   ├── (auth)/                          # 3. ระบบล็อกอิน / สมัครสมาชิก
+│   │   ├── login/
+│   │   │   └── page.tsx                 # หน้าเข้าสู่ระบบ (Email, Password, OAuth)
+│   │   └── register/
+│   │       └── page.tsx                 # หน้าลงทะเบียนสมัครสมาชิก
+│   │
+│   ├── (community)/                     # 4. หน้าชุมชนหลัก ( Header + Sidebars)
+│   │   ├── layout.tsx                   # Layout หลักของชุมชน (ครอบ Header, Sidebars, Modals)
+│   │   ├── page.tsx                     # หน้า Feed หลัก รวมโพสต์ทั้งหมด (/feed)
+│   │   ├── events/
+│   │   │   └── page.tsx                 # หน้าตารางกิจกรรม / อีเวนต์ไลฟ์สด พร้อมปุ่ม RSVP [รูป 5]
+│   │   ├── leaderboard/
+│   │   │   └── page.tsx                 # หน้าจัดอันดับสมาชิก คะแนน 7d/30d/All-Time และ Level Badges [รูป 7, 8]
+│   │   ├── members/
+│   │   │   ├── page.tsx                 # หน้า Directory ค้นหาสมาชิก (Filter Near me / Online / Location) [รูป 6]
+│   │   │   └── [userId]/
+│   │   │       └── page.tsx             # หน้าโปรไฟล์ส่วนตัวของสมาชิกรายบุคคล (View Profile)
+│   │   └── spaces/
+│   │       └── [spaceSlug]/             # Dynamic Route สำหรับแต่ละ Space
+│   │           ├── page.tsx             # แสดงโพสต์เฉพาะใน Space นั้นๆ
+│   │           └── posts/
+│   │               └── [postId]/        # หน้าอ่านบทความ/โพสต์ฉบับเต็ม + คอมเมนต์
+│   │
+│   ├── (customer-portal)/               # 5. หน้าจัดการบัญชีผู้ใช้งานส่วนตัว (Customer Portal)
+│   │   └── settings/
+│   │       ├── profile/
+│   │       │   └── page.tsx             # แก้ไขข้อมูลโปรไฟล์ (Edit profile, Bio, Avatar)
+│   │       └── billing/
+│   │           └── page.tsx             # จัดการบัตรเครดิต, ประวัติใบเสร็จ, อัปเกรดแพ็กเกจ
+│   │
+│   ├── api/                             # 6. Backend API Routes & Serverless Functions
+│   │   ├── auth/
+│   │   │   └── callback/route.ts        # Supabase OAuth Callback Handler
+│   │   ├── checkout/
+│   │   │   └── route.ts                 # Stripe Checkout Session Generator
+│   │   ├── messages/
+│   │   │   └── route.ts                 # Direct Message API Routes
+│   │   ├── notifications/
+│   │   │   └── route.ts                 # Notification Fetch & Mark as Read API
+│   │   └── webhooks/
+│   │       ├── stripe/route.ts          # Stripe Webhook Listener (Update Subscriptions)
+│   │       └── supabase/route.ts        # Supabase Database Webhook Listeners
+│   │
+│   ├── layout.tsx                       # Root Layout หลักของแอป
+│   └── page.tsx                         # Landing / Main Entry point
+│
+├── components/                          # React UI Components
+│   ├── ui/                              # shadcn/ui Primitives (Button, Dialog, Dropdown, Badge, Tabs, Card)
+│   ├── layout/                          # Layout Components
+│   │   ├── header.tsx                   # แถบบนสุด (รวมไอคอน Search, Noti, DM, Threads, Bookmarks, Avatar)
+│   │   ├── sidebar.tsx                  # แถบซ้าย (รายการ Spaces, Categories)
+│   │   └── right-sidebar.tsx            # แถบขวา (Upcoming Events Widget)
+│   ├── overlays/                        # หน้าต่าง Popover/Dropdown เมนูบน Header (จากภาพที่แนบเพิ่มเติม)
+│   │   ├── notifications-dropdown.tsx   # หน้าต่างแจ้งเตือน (Inbox, Mentions, Following, All, Archived) [รูป 1]
+│   │   ├── direct-messages-modal.tsx    # หน้าต่างแชทส่วนตัว Direct Messages (Inbox/Unread) [รูป 2]
+│   │   ├── chat-threads-modal.tsx       # หน้าต่างเธรดแชทกลุ่ม Live Lounge & GIF Support [รูป 3]
+│   │   ├── bookmarks-modal.tsx          # หน้าต่างบุ๊กมาร์ก (Posts, Comments, Events, Lessons, Messages) [รูป 4]
+│   │   └── profile-dropdown.tsx         # ดรอปดาวน์โปรไฟล์ (View/Edit profile, Dark mode, Sign out)
+│   ├── admin/                           # Admin Dashboard Components
+│   │   ├── admin-sidebar.tsx
+│   │   └── stats-card.tsx
+│   ├── feed/                            # Feed Components
+│   │   ├── create-post-card.tsx
+│   │   ├── post-card.tsx
+│   │   ├── post-editor.tsx
+│   │   └── space-banner.tsx
+│   ├── events/                          # Event Components
+│   │   ├── event-card.tsx               # การ์ดแสดงงานสัมมนา [รูป 5]
+│   │   └── rsvp-button.tsx              # ปุ่มลงทะเบียนเข้าร่วมอีเวนต์ [รูป 5]
+│   ├── members/                         # Members Components
+│   │   ├── member-card.tsx              # การ์ดรายชื่อสมาชิก [รูป 6]
+│   │   └── member-filter.tsx            # ตัวกรองสถานที่ / สถานะออนไลน์ [รูป 6]
+│   ├── leaderboard/                     # Gamification Components
+│   │   ├── leaderboard-table.tsx        # ตารางอันดับสมาชิกสะสมคะแนน [รูป 7, 8]
+│   │   └── level-badge.tsx              # เหรียญเกียรติยศ (Newcomer, Rookie, Novice, Contributor) [รูป 7]
+│   ├── comments/                        # Comment Components
+│   │   ├── comment-item.tsx
+│   │   └── comment-input.tsx
+│   └── shared/                          # Shared Components (Avatar, UserBadge, LoadingSpinner)
+│
+├── config/                              # SaaS & App Configuration
+│   └── site.ts                          # App Name, Navigation Links, Pricing Plans Definition
+│
+├── emails/                              # Transactional Email Templates (Resend / React Email)
+│   ├── welcome-email.tsx
+│   ├── invoice-email.tsx
+│   └── reset-password.tsx
+│
+├── hooks/                               # Custom React Hooks
+│   ├── use-auth.ts                      # Session & User Profile Hook
+│   ├── use-posts.ts                     # Feed & Posts Logic Hook
+│   ├── use-notifications.ts             # Hook จัดการดึงและการอ่าน Notification แบบ Realtime [รูป 1]
+│   ├── use-direct-messages.ts           # Hook แชทข้อความส่วนตัว Realtime [รูป 2]
+│   ├── use-bookmarks.ts                 # Hook บันทึกรายการโปรด [รูป 4]
+│   └── use-realtime.ts                  # Supabase Realtime Subscriptions Hook
+│
+├── lib/                                 # Third-Party Integrations & Clients
+│   ├── supabase/                        # Supabase Setup
+│   │   ├── client.ts                    # Browser Client
+│   │   ├── server.ts                    # Server Component Client
+│   │   └── middleware.ts                # Session Refresh Middleware
+│   ├── stripe/                          # Stripe Setup
+│   │   ├── client.ts
+│   │   └── subscription.ts
+│   └── utils.ts                         # Utility Helpers (cn, formatDate, calcPoints)
+│
+├── store/                               # Global State Management (Zustand)
+│   ├── use-feed-store.ts                # Filter & Sorting States
+│   ├── use-chat-store.ts                # State จัดการเปิด/ปิด Popover DM และ Threads [รูป 2, 3]
+│   └── use-sidebar-store.ts             # Sidebar Toggle State
+│
+├── types/                               # TypeScript Definitions
+│   ├── database.ts                      # Supabase Auto-generated Types
+│   ├── post.ts                          # Post & Comment Types
+│   ├── space.ts                         # Space & Category Types
+│   ├── notification.ts                  # Notification & Types (Mention, Comment, Like) [รูป 1]
+│   ├── message.ts                       # Direct Message & Chat Thread Types [รูป 2, 3]
+│   ├── event.ts                         # Event & RSVP Types [รูป 5]
+│   ├── leaderboard.ts                   # Gamification, Points & Badges Types [รูป 7]
+│   └── user.ts                          # Profile & Role Types
+│
+├── middleware.ts                        # Global Route Guard (RBAC & Auth Verification)
+├── next.config.js                       # Next.js Configuration
+├── tailwind.config.js                   # Tailwind CSS Configuration
+└── package.json                         # Dependencies & Scripts Setup
+
+
 # FAOS-Community
  การสร้าง platform คอมมูนิตี้ใช้เอง (Self-hosted / Custom Built) นอกจากจะช่วยประหยัดค่าบริการรายเดือนของ Circle ($89–$199/เดือน) แล้ว ยังทำให้เราตั้งราคา Membership, ปรับแต่ง Branding และเจ้าของข้อมูล 100% โดยไม่มีข้อจำกัดด้วยครับนี่คือโครงสร้างสถาปัตยกรรมระบบ (Architecture) และฟีเจอร์หลักสำหรับสร้าง FAOS Community ด้วยตัวคุณเองครับ
  
