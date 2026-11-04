@@ -152,6 +152,32 @@ src/
 └── package.json                         # Dependencies & Scripts Setup
 
 
+Frontend Framework (Next.js App Router + TypeScript):
+
+ควบคุมผ่านโครงสร้างโฟลเดอร์หลักใน src/app/ และใช้งานระบบ Type ทั้งหมดผ่านโฟลเดอร์ src/types/ (รวมถึง TypeScript types สำหรับ Supabase และฐานข้อมูล)
+
+Styling (Tailwind CSS + shadcn/ui):
+
+โค้ด UI components สำเร็จรูปทั้งหมดจัดเก็บไว้ใน src/components/ui/ พร้อมรองรับดีไซน์โหมดมืด (Dark Mode) และธีมพรีเมียมคล้าย Circle
+
+Database & Auth (Supabase PostgreSQL):
+
+เชื่อมต่อผ่านไลบรารีและไคลเอนต์ที่ตั้งค่าไว้ใน src/lib/supabase/ (รองรับทั้ง Server, Browser และ Middleware สำหรับตรวจสอบสิทธิ์)
+
+State Management (Zustand):
+
+จัดการสถานะการทำงานของฟีด โพสต์ และระบบแชต/หน้าต่าง Popover ผ่านโฟลเดอร์ src/store/ (เช่น use-feed-store.ts, use-chat-store.ts)
+
+Payment Gateway (Stripe / PromptPay):
+
+จัดการระบบชำระเงินผ่าน API Routes ที่ src/app/api/checkout/ และรับข้อมูลยืนยันสถานะสมาชิกอัตโนมัติผ่าน src/app/api/webhooks/stripe/ พร้อมฟังก์ชันเชื่อมโยงใน src/lib/stripe/
+
+Hosting & DNS (Vercel + Cloudflare):
+
+โครงสร้างนี้ถูกออกแบบมาเพื่อให้ Build & Deploy ขึ้น Vercel ได้ทันที พร้อมตั้งค่า Subdomain (community.faos.asia) ผ่าน Cloudflare DNS ได้อย่างไร้รอยต่อ
+
+โครงสร้างนี้พร้อมสำหรับการลงมือพัฒนาซอฟต์แวร์ SaaS คอมมูนิตี้เชิงพาณิชย์ของคุณแล้วครับ มีส่วนไหนต้องการเจาะลึกหรือเริ่มเขียนโค้ดในโมดูล
+
 # FAOS-Community
  การสร้าง platform คอมมูนิตี้ใช้เอง (Self-hosted / Custom Built) นอกจากจะช่วยประหยัดค่าบริการรายเดือนของ Circle ($89–$199/เดือน) แล้ว ยังทำให้เราตั้งราคา Membership, ปรับแต่ง Branding และเจ้าของข้อมูล 100% โดยไม่มีข้อจำกัดด้วยครับนี่คือโครงสร้างสถาปัตยกรรมระบบ (Architecture) และฟีเจอร์หลักสำหรับสร้าง FAOS Community ด้วยตัวคุณเองครับ
  
