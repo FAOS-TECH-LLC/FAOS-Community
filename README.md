@@ -1,3 +1,170 @@
+udate version
+src/
+├── app/
+│   │
+│   ├── (marketing)/                     # 1. หน้าเว็บไซต์ขายบริการ SaaS (Landing Page & Pricing)
+│   │   ├── page.tsx                     # หน้าแรก (Hero Section, Features, Social Proof)
+│   │   ├── pricing/                     # หน้าแสดงแพ็กเกจราคา (Starter, Pro, Enterprise)
+│   │   │   └── page.tsx
+│   │   ├── terms/
+│   │   │   └── page.tsx                 # Terms of Service
+│   │   └── privacy/
+│   │       └── page.tsx                 # Privacy Policy
+│   │
+│   ├── (admin)/                         # 2. ระบบหลังบ้านสำหรับ Admin / Owner (จัดการ Community ตัวเอง)
+│   │   └── admin/
+│   │       ├── layout.tsx               # Layout หลังบ้าน (Admin Sidebar)
+│   │       ├── page.tsx                 # Dashboard Overview (สถิติสมาชิก, โพสต์, กราฟการมีส่วนร่วม)
+│   │       ├── members/
+│   │       │   └── page.tsx             # จัดการสมาชิก (เปลี่ยน Role, Ban, ให้ Badges/Points)
+│   │       ├── spaces/
+│   │       │   └── page.tsx             # จัดการห้องพูดคุย (สร้าง/แก้ไข/ลบ Spaces & Categories)
+│   │       ├── subscriptions/
+│   │       │   └── page.tsx             # ตรวจสอบยอดชำระเงินของลูกเพจ/สมาชิกในคอมมูนิตี้
+│   │       └── settings/
+│   │           └── page.tsx             # ตั้งค่าแบรนด์ (Custom Logo, Colors, Custom Domain)
+│   │
+│   ├── (auth)/                          # 3. ระบบล็อกอิน / สมัครสมาชิก
+│   │   ├── login/
+│   │   │   └── page.tsx                 # หน้าเข้าสู่ระบบ (Email Magic Link, Password, OAuth)
+│   │   └── register/
+│   │       └── page.tsx                 # หน้าลงทะเบียนสมัครสมาชิก
+│   │
+│   ├── (community)/                     # 4. หน้าชุมชนหลัก (Header + Sidebars)
+│   │   ├── layout.tsx                   # Layout หลักของชุมชน (ครอบ Header, Sidebars, Modals)
+│   │   ├── page.tsx                     # หน้า Feed หลัก รวมโพสต์ทั้งหมด (/feed)
+│   │   ├── events/
+│   │   │   └── page.tsx                 # หน้าตารางกิจกรรม / อีเวนต์ไลฟ์สด พร้อมปุ่ม RSVP
+│   │   ├── leaderboard/
+│   │   │   └── page.tsx                 # หน้าจัดอันดับสมาชิก คะแนน 7d/30d/All-Time และ Level Badges
+│   │   ├── members/
+│   │   │   ├── page.tsx                 # หน้า Directory ค้นหาสมาชิก (Filter Near me / Online / Location)
+│   │   │   ├── map/
+│   │   │   │   └── page.tsx             # หน้า Global Member Map (แผนที่โลกแสดงพิกัดสมาชิก)
+│   │   │   └── [userId]/
+│   │   │       └── page.tsx             # หน้าโปรไฟล์ส่วนตัวของสมาชิกรายบุคคล
+│   │   └── spaces/
+│   │       └── [spaceSlug]/             # Dynamic Route สำหรับแต่ละ Space
+│   │           ├── page.tsx             # แสดงโพสต์เฉพาะใน Space นั้นๆ
+│   │           └── posts/
+│   │               └── [postId]/        # หน้าอ่านบทความ/โพสต์ฉบับเต็ม + คอมเมนต์ (Dynamic OG Image)
+│   │
+│   ├── (customer-portal)/               # 5. หน้าจัดการบัญชีผู้ใช้งานส่วนตัว (Customer Portal)
+│   │   └── settings/
+│   │       ├── profile/
+│   │       │   └── page.tsx             # แก้ไขข้อมูลโปรไฟล์ (Edit profile, Bio, Avatar)
+│   │       └── billing/
+│   │           └── page.tsx             # จัดการบัตรเครดิต, ประวัติใบเสร็จ, อัปเกรดแพ็กเกจสมาชิก
+│   │
+│   ├── api/                             # 6. Backend API Routes & Serverless Functions
+│   │   ├── auth/
+│   │   │   └── callback/route.ts        # Supabase OAuth Callback Handler
+│   │   ├── checkout/
+│   │   │   └── route.ts                 # Stripe Checkout Session Generator
+│   │   ├── messages/
+│   │   │   └── route.ts                 # Direct Message API Routes
+│   │   ├── notifications/
+│   │   │   └── route.ts                 # Notification Fetch & Mark as Read API
+│   │   └── webhooks/
+│   │       ├── stripe/route.ts          # Stripe Webhook Listener (อัปเดตสถานะการชำระเงินอัตโนมัติ)
+│   │       └── supabase/route.ts        # Supabase Database Webhook Listeners
+│   │
+│   ├── sitemap.ts                       # Dynamic Sitemap สำหรับ Google SEO
+│   ├── robots.txt                       # Search Engine Bot Rules
+│   ├── layout.tsx                       # Root Layout (รวม Sentry, ThemeProvider, Toaster)
+│   └── page.tsx                         # SaaS Main Landing Page Entry Point
+│
+├── components/                          # React UI Components
+│   ├── ui/                              # shadcn/ui Primitives (Button, Dialog, Dropdown, Badge, Tabs, Card)
+│   ├── layout/                          # Layout Components
+│   │   ├── header.tsx                   # แถบบนสุด (Search, Noti, DM, Threads, Bookmarks, Avatar)
+│   │   ├── sidebar.tsx                  # แถบซ้าย (รายการ Spaces, Categories)
+│   │   └── right-sidebar.tsx            # แถบขวา (Upcoming Events Widget)
+│   ├── overlays/                        # หน้าต่าง Popover/Dropdown เมนูบน Header
+│   │   ├── notifications-dropdown.tsx   # หน้าต่างแจ้งเตือน
+│   │   ├── direct-messages-modal.tsx    # หน้าต่างแชทส่วนตัว Direct Messages
+│   │   ├── chat-threads-modal.tsx       # หน้าต่างเธรดแชทกลุ่ม Live Lounge
+│   │   ├── bookmarks-modal.tsx          # หน้าต่างบุ๊กมาร์ก (Posts, Comments, Events, Messages)
+│   │   └── profile-dropdown.tsx         # ดรอปดาวน์โปรไฟล์
+│   ├── admin/                           # Admin Dashboard Components
+│   │   ├── admin-sidebar.tsx
+│   │   └── stats-card.tsx
+│   ├── feed/                            # Feed Components
+│   │   ├── create-post-card.tsx
+│   │   ├── post-card.tsx
+│   │   ├── post-editor.tsx
+│   │   └── space-banner.tsx
+│   ├── events/                          # Event Components
+│   │   ├── event-card.tsx               # การ์ดแสดงงานสัมมนา
+│   │   └── rsvp-button.tsx              # ปุ่มลงทะเบียนเข้าร่วมอีเวนต์
+│   ├── members/                         # Members Components
+│   │   ├── member-card.tsx              # การ์ดรายชื่อสมาชิก
+│   │   ├── member-filter.tsx            # ตัวกรองสถานที่ / สถานะออนไลน์
+│   │   └── member-map-client.tsx        # Client Mapbox Component แยกเดี่ยวเพื่อประสิทธิภาพ
+│   ├── leaderboard/                     # Gamification Components
+│   │   ├── leaderboard-table.tsx        # ตารางอันดับสมาชิกสะสมคะแนน
+│   │   └── level-badge.tsx              # เหรียญเกียรติยศ (Newcomer, Novice, Contributor)
+│   ├── comments/                        # Comment Components
+│   │   ├── comment-item.tsx
+│   │   └── comment-input.tsx
+│   └── shared/                          # Shared Components (Avatar, UserBadge, LoadingSpinner)
+│
+├── config/                              # SaaS & App Configuration
+│   └── site.ts                          # App Name, Navigation Links, Pricing Plans Definition
+│
+├── emails/                              # Transactional Email Templates (React Email / Resend)
+│   ├── welcome-email.tsx
+│   ├── invoice-email.tsx
+│   └── reset-password.tsx
+│
+├── hooks/                               # Custom React Hooks
+│   ├── use-auth.ts                      # Session & User Profile Hook
+│   ├── use-posts.ts                     # Feed & Posts Logic Hook
+│   ├── use-notifications.ts             # Notification Realtime Hook
+│   ├── use-direct-messages.ts           # Direct Messages Realtime Hook
+│   ├── use-bookmarks.ts                 # Bookmarks Hook
+│   └── use-realtime.ts                  # Supabase Realtime Subscriptions Hook
+│
+├── lib/                                 # Third-Party Integrations & Clients
+│   ├── supabase/                        # Supabase Setup
+│   │   ├── client.ts                    # Browser Client
+│   │   ├── server.ts                    # Server Component Client
+│   │   └── middleware.ts                # Session Refresh & RBAC Middleware
+│   ├── stripe/                          # Stripe Setup
+│   │   ├── client.ts
+│   │   └── subscription.ts
+│   ├── storage/                         # Supabase Storage Buckets Upload Handlers
+│   ├── sentry/                          # Sentry Error Tracking Configuration
+│   └── utils.ts                         # Utility Helpers (cn, formatDate, calcPoints)
+│
+├── store/                               # Global State Management (Zustand)
+│   ├── use-feed-store.ts                # Feed Filter & Sorting State
+│   ├── use-chat-store.ts                # DM / Threads Modal Toggles & Active Chat State
+│   └── use-sidebar-store.ts             # Responsive Sidebar State
+│
+├── types/                               # TypeScript Definitions
+│   ├── database.ts                      # Supabase Auto-generated Types
+│   ├── post.ts                          # Post & Comment Types
+│   ├── space.ts                         # Space & Category Types
+│   ├── notification.ts                  # Notification Types
+│   ├── message.ts                       # Direct Message & Chat Thread Types
+│   ├── event.ts                         # Event & RSVP Types
+│   ├── leaderboard.ts                   # Gamification & Badges Types
+│   └── user.ts                          # Profile & Role Types
+│
+├── .github/
+│   └── workflows/
+│       └── ci.yml                       # CI/CD: Automated Type-checking & Build Test
+│
+├── middleware.ts                        # Global Route Guard (Multi-tenant & Auth Verification)
+
+
+
+
+
+-----------------------------
+
+
 src/
 ├── app/
 │   │
