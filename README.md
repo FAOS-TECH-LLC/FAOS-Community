@@ -14,6 +14,8 @@ src/
 │   │   └── admin/
 │   │       ├── layout.tsx               # Layout หลังบ้าน (Admin Sidebar)
 │   │       ├── page.tsx                 # Dashboard Overview (สถิติรายได้, กราฟสมาชิก)
+                                           การจัดการและเพิ่มข้อมูลการทำงาน (Task Management Form & Table) เข้ากับ 
+                                           หน้าแดชบอร์ดภาพรวม (Admin Overview) และคงส่วนของ Member Directory
 │   │       ├── members/
 │   │       │   └── page.tsx             # จัดการสมาชิก (เปลี่ยน Role, Banned, ให้ Badges)
 │   │       ├── spaces/
