@@ -162,8 +162,8 @@ src/
 
 
 
-
-
+app/layout.tsx
+Font (ทั้ง Geist, Geist Mono, Inter และ Playfair Display), Mapbox CSS, Metadata สำหรับ SEO/OpenGraph และสไตล์ Dark Mode ทั้งหมดมารวมเข้าด้วยกันอย่างถูกต้องตามมาตรฐาน Next.js App Router
 -----------------------------
 
 
